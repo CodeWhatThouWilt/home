@@ -23,6 +23,8 @@ class User(db.Model, UserMixin):
     
     balance = db.relationship('Balance', back_populates='user', uselist=False)
     transactions = db.relationship('Transaction', back_populates='user')
+    watchlists = db.relationship('Watchlist', back_populates='user')
+    
     
     @property
     def password(self):
