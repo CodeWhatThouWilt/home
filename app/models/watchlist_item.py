@@ -1,6 +1,9 @@
-from .db import db, SCHEMA, environment
+from .db import db
+from .mixins import TimestampMixin
 
-class WatchlistItem(db.Model):
+class WatchlistItem(db.Model, TimestampMixin):
+    __tablename__ = 'watchlist_items'
+    
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     watchlist_id = db.Column(db.Integer, db.ForeignKey('watchlists.id'), nullable=True, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
