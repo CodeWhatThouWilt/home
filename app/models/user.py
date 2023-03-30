@@ -1,14 +1,12 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+from .mixins import TimestampMixin
 
 
-class User(db.Model, UserMixin):
+class User(db.Model, UserMixin, TimestampMixin):
     __tablename__ = 'users'
-
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
@@ -18,9 +16,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(10), nullable=False)
     date_of_birth = db.Column(db.Date, nullable=False)
-    created_at = db.Column(db.DateTime, default=db.func.now())
-    updated_at = db.Column(db.Date, default=db.func.now())
-    
+
     balance = db.relationship('Balance', back_populates='user', uselist=False)
     transactions = db.relationship('Transaction', back_populates='user')
     watchlists = db.relationship('Watchlist', back_populates='user')
