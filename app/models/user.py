@@ -17,10 +17,12 @@ class User(db.Model, UserMixin, TimestampMixin):
     phone_number = db.Column(db.String(10), nullable=False)
     date_of_birth = db.Column(db.Date, nullable=False)
 
-    balance = db.relationship('Balance', back_populates='user', uselist=False)
-    transactions = db.relationship('Transaction', back_populates='user')
-    watchlists = db.relationship('Watchlist', back_populates='user')
-    
+    # User has many Orders
+    # User has many Trades
+    # User has many Positions
+    # User has many Watchlists
+    # User has many Transactions
+    # User has one Balance
     
     @property
     def password(self):

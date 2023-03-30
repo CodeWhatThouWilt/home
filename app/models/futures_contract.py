@@ -1,10 +1,9 @@
-from .db import db, environment, SCHEMA
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
-from datetime import datetime
+from .db import db
 from .mixins import TimestampMixin
 
-class FururesContract(db.Model, TimestampMixin):
+class FuturesContract(db.Model, TimestampMixin):
+    __tablename__ = 'futures_contracts'
+    
     id = db.Column(db.Integer, primary_key=True)
     symbol = db.Column(db.String, unique=True, nullable=False)
     exchange = db.Column(db.String, nullable=False)
