@@ -11,6 +11,21 @@ class HistoricalPrice(db.Model, TimestampMixin):
     high = db.Column(db.Float, nullable=False)
     low = db.Column(db.Float, nullable=False)
     close = db.Column(db.Float, nullable=False)
-    volumne = db.Column(db.Integer, nullable=False)
+    volume = db.Column(db.Integer, nullable=False)
     
     # HistoricalPrice belongs to FuturesContract
+    futures_contract = db.relationship('FuturesContract', back_populates='historical_prices')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'contractId': self.contract_id,
+            'date': self.date,
+            'open': self.open,
+            'high': self.high,
+            'low': self.low,
+            'close': self.close,
+            'volumne': self.volume,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }

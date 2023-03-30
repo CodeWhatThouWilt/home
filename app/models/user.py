@@ -18,12 +18,30 @@ class User(db.Model, UserMixin, TimestampMixin):
     date_of_birth = db.Column(db.Date, nullable=False)
 
     # User has many Orders
+    orders = db.relationship('Order', back_populates='user')
     # User has many Trades
+    trades = db.relationship('Trade', back_populates='user')
     # User has many Positions
+    positions = db.relationship('Position', back_populates='user')
     # User has many Watchlists
+    watchlists = db.relationship('Watchlist', back_populates='user')
     # User has many Transactions
+    transactions = db.relationship('Transaction', back_populates='user')
     # User has one Balance
+    balance = db.relationship('balance', back_populates='user', uselist=False)
     
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'firstName': self.first_name,
+            'lastName': self.last_name,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }
+        
     @property
     def password(self):
         return self.hashed_password
@@ -35,11 +53,4 @@ class User(db.Model, UserMixin, TimestampMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email,
-            'firstName': self.first_name,
-            'lastName': self.last_name
-        }
+    

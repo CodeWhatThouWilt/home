@@ -9,6 +9,7 @@ class Transaction(db.Model, TimestampMixin):
     transaction_type = db.Column(db.String(10), nullable=False) # DEPOSIT OR WITHDRAW
     amount = db.Column(db.Float, nullable =False)
     
+    # Transaction belongs to User
     user = db.relationship('User', back_populates='transactions')
     
     def to_dict(self):
@@ -16,5 +17,7 @@ class Transaction(db.Model, TimestampMixin):
             'id': self.id,
             'userId': self.user_id,
             'transactionType': self.transaction_type,
-            'amount': self.amount
+            'amount': self.amount,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
         }

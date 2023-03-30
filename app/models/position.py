@@ -11,4 +11,17 @@ class Position(db.Model, TimestampMixin):
     status = db.Column(db.String, nullable=False)
     
     # Position belongs to User
+    user = db.relationship('User', back_populates='positions')
     # Position belongs to FuturesContract
+    futures_contract = db.relationship('FuturesContract', back_populates='positions')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.user_id,
+            'contractId': self.contract_id,
+            'quantity': self.quantity,
+            'status': self.status,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }

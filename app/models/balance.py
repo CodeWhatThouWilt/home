@@ -9,11 +9,14 @@ class Balance(db.Model, TimestampMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     balance = db.Column(db.Float, nullable=False, default=0)
 
+    # Balance belongs to one User
     user = db.relationship('User', back_populates='balance')
     
     def to_dict(self):
         return {
             'id': self.id,
             'userId': self.user_id,
-            'balance': self.balance
+            'balance': self.balance,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
         }

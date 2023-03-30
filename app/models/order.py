@@ -13,4 +13,19 @@ class Order(db.Model, TimestampMixin):
     order_status = db.Column(db.String, nullable=False)
     
     # Order belongs to FuturesContract
+    futures_contract = db.relationship('FuturesContract', back_populates='orders')
     # Order belongs to User
+    user = db.relationship('User', back_populates='orders')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.user_id,
+            'contractId': self.contract_id,
+            'orderType': self.order_type,
+            'quantity': self.quantity,
+            'price': self.price,
+            'orderStatus': self.order_status,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }

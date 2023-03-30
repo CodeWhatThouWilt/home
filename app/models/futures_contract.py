@@ -13,7 +13,26 @@ class FuturesContract(db.Model, TimestampMixin):
     maintenance_margin = db.Column(db.Float, nullable=False)
 
     # One futures contract has many Orders
+    orders = db.relationship('Order', back_populates='futures_contract')
     # One futures contract has many Trades
+    trades = db.relationship('Trade', back_populates='futures_contract')
     # One futures contract many Positions
+    positions = db.relationship('Position', back_populates='futures_contract')
     # One futures contract has many WatchlistItems
+    watchlist_items = db.relationship('WatchlistItem', back_populates='futures_contract')
     # One futures contract has many historical prices
+    historical_prices = db.relationship('HistoricalPrices', back_populates='futures_contract')
+    
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'symbol': self.symbol,
+            'exchange': self.exchange,
+            'contractSize': self.contract_size,
+            'tickSize': self.tick_size,
+            'initialMargin': self.initial_margin,
+            'maintenanceMargin': self.maintenance_margin,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }
