@@ -1,10 +1,8 @@
-from .db import db, SCHEMA, environment
+from .db import db
+from .mixins import TimestampMixin
 
-class Transaction(db.Model):
+class Transaction(db.Model, TimestampMixin):
     __tablename__ = 'transactions'
-    
-    if environment == 'production':
-        __table_args__ = { 'schema': SCHEMA }
         
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)

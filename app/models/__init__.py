@@ -6,4 +6,5 @@ from .trade import Trade
 from .position import Position
 from .watchlist import Watchlist
 from .watchlist_item import WatchlistItem
+from .transaction import Transaction
 from .db import environment, SCHEMA
