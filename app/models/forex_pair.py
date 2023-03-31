@@ -23,7 +23,7 @@ class ForexPair(db.Model, TimestampMixin):
     # One ForexPair has many WatchlistItems
     watchlist_items = db.relationship('WatchlistItem', back_populates='forex_pair')
     # One ForexPair has many historical prices
-    historical_prices = db.relationship('HistoricalPrices', back_populates='forex_pair')
+    historical_prices = db.relationship('HistoricalPrice', back_populates='forex_pair')
     
     
     def to_dict(self):

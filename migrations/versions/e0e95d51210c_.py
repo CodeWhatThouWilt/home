@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e6b333b31645
+Revision ID: e0e95d51210c
 Revises: 
-Create Date: 2023-03-31 05:52:50.234623
+Create Date: 2023-03-31 08:39:02.901006
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e6b333b31645'
+revision = 'e0e95d51210c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,9 +23,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('symbol', sa.String(), nullable=False),
     sa.Column('base_currency', sa.String(), nullable=False),
+    sa.Column('base_currency_name', sa.String(), nullable=False),
     sa.Column('quote_currency', sa.String(), nullable=False),
-    sa.Column('initial_margin', sa.Float(), nullable=False),
-    sa.Column('maintenance_margin', sa.Float(), nullable=False),
+    sa.Column('quote_currency_name', sa.String(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('symbol')
@@ -38,21 +38,10 @@ def upgrade():
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('first_name', sa.String(length=50), nullable=False),
     sa.Column('last_name', sa.String(length=50), nullable=False),
-    sa.Column('phone_number', sa.String(length=10), nullable=False),
-    sa.Column('date_of_birth', sa.Date(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
-    )
-    op.create_table('accounts',
-    sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('leverage', sa.Float(), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('balances',
     sa.Column('created_at', sa.DateTime(), nullable=True),
@@ -170,7 +159,6 @@ def downgrade():
     op.drop_table('orders')
     op.drop_table('historical_prices')
     op.drop_table('balances')
-    op.drop_table('accounts')
     op.drop_table('users')
     op.drop_table('forex_pairs')
     # ### end Alembic commands ###

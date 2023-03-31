@@ -13,7 +13,7 @@ class Position(db.Model, TimestampMixin):
     # Position belongs to User
     user = db.relationship('User', back_populates='positions')
     # Position belongs to ForexPair
-    futures_contract = db.relationship('ForexPair', back_populates='positions')
+    forex_pair = db.relationship('ForexPair', back_populates='positions')
     
     def to_dict(self):
         return {

@@ -14,8 +14,8 @@ class User(db.Model, UserMixin, TimestampMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-    phone_number = db.Column(db.String(10), nullable=False)
-    date_of_birth = db.Column(db.Date, nullable=False)
+    # phone_number = db.Column(db.String(10), nullable=False)
+    # date_of_birth = db.Column(db.Date, nullable=False)
 
     # User has many Orders
     orders = db.relationship('Order', back_populates='user')
