@@ -8,8 +8,9 @@ class ForexPair(db.Model, TimestampMixin):
     symbol = db.Column(db.String, unique=True, nullable=False)
     base_currency = db.Column(db.String, nullable=False)
     quote_currency = db.Column(db.String, nullable=False)
-    initial_margin = db.Column(db.Float, nullable=False)
-    maintenance_margin = db.Column(db.Float, nullable=False)
+    # For potential integration with forex futures:
+    # initial_margin = db.Column(db.Float, nullable=False)
+    # maintenance_margin = db.Column(db.Float, nullable=False)
 
     # One ForexPair has many Orders
     orders = db.relationship('Order', back_populates='forex_pair')
@@ -29,8 +30,6 @@ class ForexPair(db.Model, TimestampMixin):
             'symbol': self.symbol,
             'baseCurrency': self.base_currency,
             'quoteCurrency': self.quote_currency,
-            'initialMargin': self.initial_margin,
-            'maintenanceMargin': self.maintenance_margin,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at
         }
