@@ -5,7 +5,7 @@ class HistoricalPrice(db.Model, TimestampMixin):
     __tablename__ = 'historical_prices'
     
     id = db.Column(db.Integer, primary_key=True)
-    contract_id = db.Column(db.Integer, db.ForeignKey('futures_contracts.id'), nullable=False)
+    forex_pair_id = db.Column(db.Integer, db.ForeignKey('forex_pairs.id'), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
     open = db.Column(db.Float, nullable=False)
     high = db.Column(db.Float, nullable=False)
@@ -13,13 +13,13 @@ class HistoricalPrice(db.Model, TimestampMixin):
     close = db.Column(db.Float, nullable=False)
     volume = db.Column(db.Integer, nullable=False)
     
-    # HistoricalPrice belongs to FuturesContract
-    futures_contract = db.relationship('FuturesContract', back_populates='historical_prices')
+    # HistoricalPrice belongs to ForexPair
+    forex_pair = db.relationship('ForexPair', back_populates='historical_prices')
     
     def to_dict(self):
         return {
             'id': self.id,
-            'contractId': self.contract_id,
+            'forexPairId': self.forex_pair_id,
             'date': self.date,
             'open': self.open,
             'high': self.high,

@@ -28,8 +28,9 @@ class User(db.Model, UserMixin, TimestampMixin):
     # User has many Transactions
     transactions = db.relationship('Transaction', back_populates='user')
     # User has one Balance
-    balance = db.relationship('balance', back_populates='user', uselist=False)
-    
+    balance = db.relationship('Balance', back_populates='user', uselist=False)
+    # User has one Account
+    account = db.relationship('Account', back_populates='user', uselist=False)
     
     def to_dict(self):
         return {
