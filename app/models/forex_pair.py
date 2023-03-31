@@ -7,7 +7,9 @@ class ForexPair(db.Model, TimestampMixin):
     id = db.Column(db.Integer, primary_key=True)
     symbol = db.Column(db.String, unique=True, nullable=False)
     base_currency = db.Column(db.String, nullable=False)
+    base_currency_name = db.Column(db.String, nullable=False)
     quote_currency = db.Column(db.String, nullable=False)
+    quote_currency_name = db.Column(db.String, nullable=False)
     # For potential integration with forex futures:
     # initial_margin = db.Column(db.Float, nullable=False)
     # maintenance_margin = db.Column(db.Float, nullable=False)
